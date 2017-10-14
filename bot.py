@@ -23,9 +23,6 @@ wait = {
     'setTime':{},
     'ROM':{},
     'ProtectQR':False
-  #  "Protectguest":False,
-  #  "Protectcancel":False,
-  #  "protectionOn":True,	
    }
 
 setTime = {}
@@ -43,7 +40,6 @@ def sendMessage(to, text, contentMetadata={}, contentType=0):
     client._client.sendMessage(messageReq[to], mes)
 
 def NOTIFIED_ACCEPT_GROUP_INVITATION(op):
-    #print op
     try:
         sendMessage(op.param1, client.getContact(op.param2).displayName + ", Selamat Datang")
     except Exception as e:
@@ -55,7 +51,9 @@ tracer.addOpInterrupt(17,NOTIFIED_ACCEPT_GROUP_INVITATION)
 
 def NOTIFIED_KICKOUT_FROM_GROUP(op):
     try:
+				sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kamu Kicker ya? main kick member lain aja :3\nkalau bukan PC saya aja, nanti saya undang lagi")
 				client.kickoutFromGroup(op.param1,[op.param2])
+				client.inviteIntoGroup(op.param1,[op.param3])
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_KICKOUT_FROM_GROUP\n\n")
@@ -63,9 +61,22 @@ def NOTIFIED_KICKOUT_FROM_GROUP(op):
 
 tracer.addOpInterrupt(19,NOTIFIED_KICKOUT_FROM_GROUP)
 
+def NOTIFIED_UPDATE_GROUP(op):
+    try:
+                sendMessage(op.param1, client.getContact(op.param2).displayName + ", Jangan Dimainin QR-nya :3\nSaya Kick ya")
+                client.kickoutFromGroup(op.param1,[op.param2])
+    except Exception as e:
+        print e
+        print ("\n\nNOTIFIED_UPDATE_GROUP\n\n")
+        return
+
+tracer.addOpInterrupt(11,NOTIFIED_UPDATE_GROUP)
+
 def NOTIFIED_CANCEL_INVITATION_GROUP(op):
     try:
-        client.kickoutFromGroup(op.param1,[op.param2])
+                sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kenapa dibatalin?\nitu temen saya")
+                client.kickoutFromGroup(op.param1,[op.param2])
+                client.inviteIntoGroup(op.param1,[op.param3])
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_CANCEL_INVITATION_GROUP\n\n")
@@ -111,12 +122,13 @@ def SEND_MESSAGE(op):
     try:
         if msg.toType == 2:
             if msg.contentType == 0:
-                #if "gname:" in msg.text:
+
 #-------------------------------------------------------------
 		if msg.text == "Speed":
                     start = time.time()
                     elapsed_time = time.time() - start
                     sendMessage(msg.to, "%sseconds" % (elapsed_time))
+                    print ("\nCek Speed Bot")
 #-------------------------------------------------------------
 
         else:
