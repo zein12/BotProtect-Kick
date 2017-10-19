@@ -51,9 +51,9 @@ tracer.addOpInterrupt(17,NOTIFIED_ACCEPT_GROUP_INVITATION)
 
 def NOTIFIED_KICKOUT_FROM_GROUP(op):
     try:
-				sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kamu Kicker ya? main kick member lain aja :3\nkalau bukan PC saya aja, nanti saya undang lagi")
 				client.kickoutFromGroup(op.param1,[op.param2])
 				client.inviteIntoGroup(op.param1,[op.param3])
+				sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kicker kampret")				
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_KICKOUT_FROM_GROUP\n\n")
@@ -122,7 +122,6 @@ def SEND_MESSAGE(op):
     try:
         if msg.toType == 2:
             if msg.contentType == 0:
-
 #-------------------------------------------------------------
 		if msg.text == "Speed":
                     start = time.time()
