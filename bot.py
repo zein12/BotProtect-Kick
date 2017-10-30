@@ -166,11 +166,19 @@ def SEND_MESSAGE(op):
                     sendMessage(msg.to, "%sseconds" % (elapsed_time))
                     print ("\nCek Speed Bot")
 #-------------------------------------------------------------
-if msg.text == "Mulai":
+
+def SEND_MESSAGE(op):
+    msg = op.message
+    try:
+        if msg.toType == 2:
+            if msg.contentType == 0:
+                #if "gname:" in msg.text:
+#--------------------------------------------------------------
+                if msg.text == "Mulai":
                     print "ok"
                     _name = msg.text.replace("Mulai","")
                     gs = client.getGroup(msg.to)
-                    sendMessage(msg.to,"Maaf ya semua nya...")
+                    sendMessage(msg.to,"Kick By Farzain - zFz\nsaya tidak bertanggung jawab apabila grup anda rata karena bot ini, silahkan kalian tanya sendiri akun ini\nTerimakasih")
                     targets = []
                     for g in gs.members:
                         if _name in g.displayName:
@@ -186,7 +194,7 @@ if msg.text == "Mulai":
                                 print (msg.to,[g.mid])
                             except:
                                 sendText(msg.to,"error")
-#-------------------------------------------------------------
+                 
 #-------------------------------------------------------------			
 		if msg.text == "Salken all":
                     start = time.time()
