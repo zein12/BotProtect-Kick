@@ -1,2 +1,2 @@
-Gabungan dari botprotek dan bot kick.
+Gabungan dari Botprotect, botkick dan lain nya.
 Created by MJ
