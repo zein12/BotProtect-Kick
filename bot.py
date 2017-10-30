@@ -20,7 +20,7 @@ wait = {
     'readPoint':{},
     'readMember':{},
     'setTime':{},
-    'ROM':{}
+    'ROM':{},
     'ProtectQR':False
 }
 
