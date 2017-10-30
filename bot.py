@@ -159,12 +159,12 @@ def SEND_MESSAGE(op):
     try:
         if msg.toType == 2:
             if msg.contentType == 0:
-#-----------------------------------------------------
-if msg.text == "Speed":
+#-------------------------------------------------------------
+		if msg.text == "Speed":
                     start = time.time()
                     elapsed_time = time.time() - start
                     sendMessage(msg.to, "%sseconds" % (elapsed_time))
-                    print ("\nCek Kecepatan Bot")
+                    print ("\nCek Speed Bot")
 #-------------------------------------------------------------
 if msg.text == "Duar":
                     print "ok"
