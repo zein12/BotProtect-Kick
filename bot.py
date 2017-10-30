@@ -224,6 +224,11 @@ def SEND_MESSAGE(op):
 		    sendMessage(msg.to,"MJ")
 		    sendMessage(msg.to,"MJ")
 		    sendMessage(msg.to,"MJ")
+		 if "show:" in msg.text:
+                    key = msg.text[-33:]
+                    sendMessage(msg.to, text=None, contentMetadata={'mid': key}, contentType=13)
+                    contact = client.getContact(key)
+                    sendMessage(msg.to, ""+contact.displayName+"'s contact")
 		if msg.text == "tagmember":
 		      group = client.getGroup(msg.to)
 		      mem = [contact.mid for contact in group.members]
@@ -236,12 +241,9 @@ def SEND_MESSAGE(op):
 		       try:
                          client.sendMessage(msg)
 		       except Exception as error:
-print error
-                if "show:" in msg.text:
-                    key = msg.text[-33:]
-                    sendMessage(msg.to, text=None, contentMetadata={'mid': key}, contentType=13)
-                    contact = client.getContact(key)
-                    sendMessage(msg.to, ""+contact.displayName+"'s contact")
+                   	 print error
+ 		else:
+		    pass
                 if msg.text == "time":
                     sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y年%m月%d日 %H:%M:%S') + "is")
                 if msg.text == "gift":
