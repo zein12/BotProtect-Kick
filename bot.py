@@ -63,7 +63,7 @@ def NOTIFIED_KICKOUT_FROM_GROUP(op):
     try:
 				client.kickoutFromGroup(op.param1,[op.param2])
 				client.inviteIntoGroup(op.param1,[op.param3])
-				sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kikil-kikilan)				
+				sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kikil-kikilan")				
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_KICKOUT_FROM_GROUP\n\n")
