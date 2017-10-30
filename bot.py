@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# Edited from script LineVodka script made by Merkremont
 from LineAlpha import LineClient
 from LineAlpha.LineApi import LineTracer
 from LineAlpha.LineThrift.ttypes import Message
@@ -21,7 +20,7 @@ wait = {
     'readPoint':{},
     'readMember':{},
     'setTime':{},
-    'ROM':{},
+    'ROM':{}
     'ProtectQR':False
    }
 
@@ -41,7 +40,7 @@ def sendMessage(to, text, contentMetadata={}, contentType=0):
 
 def NOTIFIED_ADD_CONTACT(op):
     try:
-        sendMessage(op.param1, client.getContact(op.param1).displayName + "Makasih dah di add")
+        sendMessage(op.param1, client.getContact(op.param1).displayName + "Thanks for add")
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_ADD_CONTACT\n\n")
