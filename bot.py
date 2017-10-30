@@ -126,10 +126,10 @@ def SEND_MESSAGE(op):
             if msg.contentType == 0:
                 if msg.text == "mid":
                     sendMessage(msg.to, msg.to)
-                if msg.text == "me":
+                if msg.text == "saya":
                     sendMessage(msg.to, text=None, contentMetadata={'mid': msg.from_}, contentType=13)
                 if msg.text == "gift":
-                    sendMessage(msg.to, text="gift sent", contentMetadata=None, contentType=9)
+                    sendMessage(msg.to, text="gift terkirim", contentMetadata=None, contentType=9)
                 else:
                     pass
             else:
@@ -248,7 +248,7 @@ def SEND_MESSAGE(op):
                     sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y年%m月%d日 %H:%M:%S') + "is")
                 if msg.text == "gift":
                     sendMessage(msg.to, text="gift terkirim", contentMetadata=None, contentType=9)
-                if msg.text == "cctv":
+                if msg.text == "set":
                     sendMessage(msg.to, "Saya udah men-set read point ♪\n「cctv」Saya akan menunjukan yg cctv ♪")
                     try:
                         del wait['readPoint'][msg.to]
