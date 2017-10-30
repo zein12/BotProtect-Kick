@@ -215,20 +215,20 @@ def SEND_MESSAGE(op):
                     sendMessage(msg.to, text=None, contentMetadata={'mid': key}, contentType=13)
                     contact = client.getContact(key)
                     sendMessage(msg.to, ""+contact.displayName+"'s contact")
-		if msg.text == "Spam":
+		if msg.text == "spam":
                     sendMessage(msg.to,"3")
                     sendMessage(msg.to,"2")
 		    sendMessage(msg.to,"1")
-		    sendMessage(msg.to,"MJ")
-                    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"M-J")
+                    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"M-J")
 		if msg.text == "tagmember":
 		      group = client.getGroup(msg.to)
 		      mem = [contact.mid for contact in group.members]
@@ -245,7 +245,7 @@ def SEND_MESSAGE(op):
  		else:
 		    pass
                 if msg.text == "time":
-                    sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y年%m月%d日 %H:%M:%S') + "is")
+                    sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y-%m-%d- %H:%M:%S') + "is")
                 if msg.text == "gift":
                     sendMessage(msg.to, text="gift terkirim", contentMetadata=None, contentType=9)
                 if msg.text == "set":
@@ -270,7 +270,7 @@ def SEND_MESSAGE(op):
                                 print rom
                                 chiya += rom[1] + "\n"
 
-                        sendMessage(msg.to, "Yang nyimak %s\nhanya itu\n\nyg cctv\n%steu normal ♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
+                        sendMessage(msg.to, "Yang nyimak/cctv %s\nhanya itu\n\nyg nongol saat kamu g ada\n%s----------- ♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
                     else:
                         sendMessage(msg.to, "Read point belum di set.\n「set」ketikan itu ♪ read point akan dibuat ♪")
                 else:
