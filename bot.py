@@ -22,7 +22,7 @@ wait = {
     'setTime':{},
     'ROM':{}
     'ProtectQR':False
-   }
+}
 
 setTime = {}
 setTime = wait["setTime"]
