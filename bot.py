@@ -166,9 +166,9 @@ def SEND_MESSAGE(op):
                     sendMessage(msg.to, "%sseconds" % (elapsed_time))
                     print ("\nCek Speed Bot")
 #-------------------------------------------------------------
-if msg.text == "Duar":
+if msg.text == "Mulai":
                     print "ok"
-                    _name = msg.text.replace("Duar","")
+                    _name = msg.text.replace("Mulai","")
                     gs = client.getGroup(msg.to)
                     sendMessage(msg.to,"Maaf ya semua nya...")
                     targets = []
