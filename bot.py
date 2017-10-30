@@ -153,3 +153,22 @@ def SEND_MESSAGE(op):
                     client.updateGroup(group)
                     sendMessage(msg.to,"Group Name"+key+"Canged to")
 	
+if msg.text == "url":
+                    sendMessage(msg.to,"line://ti/g/" + client._client.reissueGroupTicket(msg.to))
+                if msg.text == "buka":
+                    group = client.getGroup(msg.to)
+                    if group.preventJoinByTicket == False:
+                        sendMessage(msg.to, "sudah dibuka")
+                    else:
+                        group.preventJoinByTicket = False
+                        client.updateGroup(group)
+                        sendMessage(msg.to, "URL Open")
+                if msg.text == "tutup":
+                    group = client.getGroup(msg.to)
+                    if group.preventJoinByTicket == True:
+                        sendMessage(msg.to, "sudah ditutup")
+                    else:
+                        group.preventJoinByTicket = True
+                        client.updateGroup(group)
+                        sendMessage(msg.to, "URL close")
+	
