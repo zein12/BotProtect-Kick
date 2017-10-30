@@ -190,8 +190,72 @@ if "tanjong:" in msg.text:
                         sendMessage(msg.to, ""+contact.displayName+" Maaf")
                     else:
                         sendMessage(msg.to, "nanaonan?")
-			
-	
-	
-	
-	
+		
+if msg.text == "cancel":
+                    group = client.getGroup(msg.to)
+                    if group.invitee is None:
+                        sendMessage(op.message.to, "Tidak ada yg diundang.")
+                    else:
+                        gInviMids = [contact.mid for contact in group.invitee]
+                        client.cancelGroupInvitation(msg.to, gInviMids)
+                        sendMessage(msg.to, str(len(group.invitee)) + " Selesai")
+                if "invite:" in msg.text:
+                    key = msg.text[-33:]
+                    client.findAndAddContactsByMid(key)
+                    client.inviteIntoGroup(msg.to, [key])
+                    contact = client.getContact(key)
+                    sendMessage(msg.to, ""+contact.displayName+" Saya mengundang kamu")
+                if msg.text == "saya":
+                    M = Message()
+                    M.to = msg.to
+                    M.contentType = 13
+                    M.contentMetadata = {'mid': msg.from_}
+                    client.sendMessage(M)
+                if "show:" in msg.text:
+                    key = msg.text[-33:]
+                    sendMessage(msg.to, text=None, contentMetadata={'mid': key}, contentType=13)
+                    contact = client.getContact(key)
+                    sendMessage(msg.to, ""+contact.displayName+"'s contact")
+                if msg.text == "time":
+                    sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y年%m月%d日 %H:%M:%S') + "is")
+                if msg.text == "gift":
+                    sendMessage(msg.to, text="gift sent", contentMetadata=None, contentType=9)
+               if msg.text == "set":
+                    sendMessage(msg.to, "Siap komandan ♪\n「cctv」Saya akan menunjukan yg cctv ♪")
+                    try:
+                        del wait['readPoint'][msg.to]
+                        del wait['readMember'][msg.to]
+                    except:
+                        pass
+                    wait['readPoint'][msg.to] = msg.id
+                    wait['readMember'][msg.to] = ""
+                    wait['setTime'][msg.to] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+                    wait['ROM'][msg.to] = {}
+                    print wait
+                if msg.text == "cctv":
+                    if msg.to in wait['readPoint']:
+                        if wait["ROM"][msg.to].items() == []:
+                            chiya = ""
+                        else:
+                            chiya = ""
+                            for rom in wait["ROM"][msg.to].items():
+                                print rom
+                                chiya += rom[1] + "\n"
+
+                        sendMessage(msg.to, "yg nyimak %s\nhanya itu \n\orang yg cctv\n%s teu normal ♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
+                    else:
+                        sendMessage(msg.to, "read point blm di set.\n「set 」♪ read point akan dibuat ♪")
+                else:
+                    pass
+        else:
+            pass
+
+    except Exception as e:
+        print e
+        print ("\n\nSEND_MESSAGE\n\n")
+        return
+
+tracer.addOpInterrupt(25,SEND_MESSAGE)
+
+while True:
+    tracer.execute()
