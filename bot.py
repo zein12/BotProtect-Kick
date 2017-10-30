@@ -152,21 +152,4 @@ def SEND_MESSAGE(op):
                     group.name = key
                     client.updateGroup(group)
                     sendMessage(msg.to,"Group Name"+key+"Canged to")
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
