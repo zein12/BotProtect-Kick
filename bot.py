@@ -210,6 +210,11 @@ def SEND_MESSAGE(op):
                     M.contentType = 13
                     M.contentMetadata = {'mid': msg.from_}
                     client.sendMessage(M)
+		if "show:" in msg.text:
+                    key = msg.text[-33:]
+                    sendMessage(msg.to, text=None, contentMetadata={'mid': key}, contentType=13)
+                    contact = client.getContact(key)
+                    sendMessage(msg.to, ""+contact.displayName+"'s contact")
 		if msg.text == "Spam":
                     sendMessage(msg.to,"3")
                     sendMessage(msg.to,"2")
@@ -224,11 +229,6 @@ def SEND_MESSAGE(op):
 		    sendMessage(msg.to,"MJ")
 		    sendMessage(msg.to,"MJ")
 		    sendMessage(msg.to,"MJ")
-		 if "show:" in msg.text:
-                    key = msg.text[-33:]
-                    sendMessage(msg.to, text=None, contentMetadata={'mid': key}, contentType=13)
-                    contact = client.getContact(key)
-                    sendMessage(msg.to, ""+contact.displayName+"'s contact")
 		if msg.text == "tagmember":
 		      group = client.getGroup(msg.to)
 		      mem = [contact.mid for contact in group.members]
