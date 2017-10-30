@@ -21,7 +21,6 @@ wait = {
     'readMember':{},
     'setTime':{},
     'ROM':{}
-    'ProtectQR':False
    }
 
 setTime = {}
@@ -49,8 +48,9 @@ def NOTIFIED_ADD_CONTACT(op):
 tracer.addOpInterrupt(5,NOTIFIED_ADD_CONTACT)
 
 def NOTIFIED_ACCEPT_GROUP_INVITATION(op):
+    #print op
     try:
-        sendMessage(op.param1, client.getContact(op.param2).displayName + ", Selamat Datang")
+        sendMessage(op.param1, client.getContact(op.param2).displayName + "WELCOME to " + group.name)
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_ACCEPT_GROUP_INVITATION\n\n")
@@ -60,9 +60,7 @@ tracer.addOpInterrupt(17,NOTIFIED_ACCEPT_GROUP_INVITATION)
 
 def NOTIFIED_KICKOUT_FROM_GROUP(op):
     try:
-				client.kickoutFromGroup(op.param1,[op.param2])
-				client.inviteIntoGroup(op.param1,[op.param3])
-				sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kikil-kikilan")				
+        sendMessage(op.param1, client.getContact(op.param3).displayName + " Good Bye\n(*´･ω･*)")
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_KICKOUT_FROM_GROUP\n\n")
@@ -72,7 +70,7 @@ tracer.addOpInterrupt(19,NOTIFIED_KICKOUT_FROM_GROUP)
 
 def NOTIFIED_LEAVE_GROUP(op):
     try:
-        sendMessage(op.param1, client.getContact(op.param2).displayName + " Dadah\n(*´･ω･*)")
+        sendMessage(op.param1, client.getContact(op.param2).displayName + " Good Bye\n(*´･ω･*)")
     except Exception as e:
         print e
         print ("\n\nNOTIFIED_LEAVE_GROUP\n\n")
@@ -97,39 +95,6 @@ def NOTIFIED_READ_MESSAGE(op):
 
 tracer.addOpInterrupt(55, NOTIFIED_READ_MESSAGE)
 
-def NOTIFIED_UPDATE_GROUP(op):
-    try:
-                sendMessage(op.param1, client.getContact(op.param2).displayName + ", QR-nya bukan mainan :3\nNtar dikick")
-                client.kickoutFromGroup(op.param1,[op.param2])
-    except Exception as e:
-        print e
-        print ("\n\nNOTIFIED_UPDATE_GROUP\n\n")
-        return
-
-tracer.addOpInterrupt(11,NOTIFIED_UPDATE_GROUP)
-
-def NOTIFIED_CANCEL_INVITATION_GROUP(op):
-    try:
-                sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kenapa dibatalin?\nitu temen saya")
-                client.kickoutFromGroup(op.param1,[op.param2])
-                client.inviteIntoGroup(op.param1,[op.param3])
-    except Exception as e:
-        print e
-        print ("\n\nNOTIFIED_CANCEL_INVITATION_GROUP\n\n")
-        return
-
-tracer.addOpInterrupt(32,NOTIFIED_CANCEL_INVITATION_GROUP)
-
-def CANCEL_INVITATION_GROUP(op):
-    try:
-        client.cancelGroupInvitation(op.param1,[op.param3])
-    except Exception as e:
-        print e
-        print ("\n\nCANCEL_INVITATION_GROUP\n\n")
-        return
-
-tracer.addOpInterrupt(31,CANCEL_INVITATION_GROUP)
-
 def RECEIVE_MESSAGE(op):
     msg = op.message
     try:
@@ -150,91 +115,93 @@ def RECEIVE_MESSAGE(op):
         print error
         print ("\n\nRECEIVE_MESSAGE\n\n")
         return
-
 tracer.addOpInterrupt(26, RECEIVE_MESSAGE)
 
 def SEND_MESSAGE(op):
     msg = op.message
     try:
+        if msg.toType == 0:
+            if msg.contentType == 0:
+                if msg.text == "mid":
+                    sendMessage(msg.to, msg.to)
+                if msg.text == "me":
+                    sendMessage(msg.to, text=None, contentMetadata={'mid': msg.from_}, contentType=13)
+                if msg.text == "gift":
+                    sendMessage(msg.to, text="gift sent", contentMetadata=None, contentType=9)
+                else:
+                    pass
+            else:
+                pass
         if msg.toType == 2:
             if msg.contentType == 0:
-#-------------------------------------------------------------
-		if msg.text == "Speed":
-                    start = time.time()
-                    elapsed_time = time.time() - start
-                    sendMessage(msg.to, "%sseconds" % (elapsed_time))
-                    print ("\nCek Speed Bot")
-
-#--------------------------------------------------------------
-                if msg.text == "Mulai":
-                    print "ok"
-                    _name = msg.text.replace("Mulai","")
-                    gs = client.getGroup(msg.to)
-                    sendMessage(msg.to,"Kick By Farzain - zFz\nsaya tidak bertanggung jawab apabila grup anda rata karena bot ini, silahkan kalian tanya sendiri akun ini\nTerimakasih")
-                    targets = []
-                    for g in gs.members:
-                        if _name in g.displayName:
-                            targets.append(g.mid)
-                    if targets == []:
-                        sendMessage(msg.to,"error")
-                    else:
-                        for target in targets:
-                            try:
-                                klist=[client]
-                                kicker=random.choice(klist)
-                                kicker.kickoutFromGroup(msg.to,[target])
-                                print (msg.to,[g.mid])
-                            except:
-                                sendText(msg.to,"error")
-                 
-#-------------------------------------------------------------			
-		if msg.text == "Salken all":
-                    start = time.time()
-                    sendMessage(msg.to, "Kumaha damang ?")
-                    elapsed_time = time.time() - start
-                    sendMessage(msg.to, "%sseconds" % (elapsed_time))
-#-------------------------------------------------------------
-                if msg.text == "Spam":
-                    sendMessage(msg.to,"3")
-                    sendMessage(msg.to,"2")
-                    sendMessage(msg.to,"1")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-                    
-            #-------------------------------------------------------------
-                if msg.text == "Tagmember":
-		      group = client.getGroup(msg.to)
-		      mem = [contact.mid for contact in group.members]
-		      for mm in mem:
-		       xname = client.getContact(mm).displayName
-		       xlen = str(len(xname)+1)
-		       msg.contentType = 0
-                       msg.text = "@"+xname+" "
-		       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
-		       try:
-                         client.sendMessage(msg)
-		       except Exception as error:
-                   	 print error
-                   	 
-#-------------------------------------------------------------
-        else:
-            pass
-
-    except Exception as e:
-        print e
-        print ("\n\nSEND_MESSAGE\n\n")
-        return
-
-tracer.addOpInterrupt(25,SEND_MESSAGE)
-
-while True:
-    tracer.execute()        
-                    
+                if msg.text == "mid":
+                    sendMessage(msg.to, msg.from_)
+                if msg.text == "gid":
+                    sendMessage(msg.to, msg.to)
+                if msg.text == "ginfo":
+                    group = client.getGroup(msg.to)
+                    md = "[Group Name]\n" + group.name + "\n\n[gid]\n" + group.id + "\n\n[Group Picture]\nhttp://dl.profile.line-cdn.net/" + group.pictureStatus
+                    if group.preventJoinByTicket is False: md += "\n\nInvitationURL: Permitted\n"
+                    else: md += "\n\nInvitationURL: Refusing\n"
+                    if group.invitee is None: md += "\nMembers: " + str(len(group.members)) + "人\n\nInviting: 0People"
+                    else: md += "\nMembers: " + str(len(group.members)) + "People\nInvited: " + str(len(group.invitee)) + "People"
+                    sendMessage(msg.to,md)
+                if "gname:" in msg.text:
+                    key = msg.text[22:]
+                    group = client.getGroup(msg.to)
+                    group.name = key
+                    client.updateGroup(group)
+                    sendMessage(msg.to,"Group Name"+key+"Canged to")
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
