@@ -234,7 +234,7 @@ def SEND_MESSAGE(op):
 		      mem = [contact.mid for contact in group.members]
 		      for mm in mem:
 		       xname = client.getContact(mm).displayName
-		       xlen = str(len(xname))
+		       xlen = str(len(xname)+"\n")
 		       msg.contentType = 0
                        msg.text = "@"+xname+" "
 		       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
