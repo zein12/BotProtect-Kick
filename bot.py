@@ -172,3 +172,26 @@ if msg.text == "url":
                         client.updateGroup(group)
                         sendMessage(msg.to, "URL close")
 	
+if "tanjong:" in msg.text:
+                    key = msg.text[5:]
+                    client.kickoutFromGroup(msg.to, [key])
+                    contact = client.getContact(key)
+                    sendMessage(msg.to, ""+contact.displayName+"maaf")
+                if "nk:" in msg.text:
+                    key = msg.text[3:]
+                    group = client.getGroup(msg.to)
+                    Names = [contact.displayName for contact in group.members]
+                    Mids = [contact.mid for contact in group.members]
+                    if key in Names:
+                        kazu = Names.index(key)
+                        sendMessage(msg.to, "Dadah")
+                        client.kickoutFromGroup(msg.to, [""+Mids[kazu]+""])
+                        contact = client.getContact(Mids[kazu])
+                        sendMessage(msg.to, ""+contact.displayName+" Maaf")
+                    else:
+                        sendMessage(msg.to, "nanaonan?")
+			
+	
+	
+	
+	
