@@ -210,25 +210,20 @@ def SEND_MESSAGE(op):
                     M.contentType = 13
                     M.contentMetadata = {'mid': msg.from_}
                     client.sendMessage(M)
-		if msg.text == "salken all":
-                    start = time.time()
-                    sendMessage(msg.to, "helo helo helo  !!")
-                    elapsed_time = time.time() - start
-sendMessage(msg.to, "%sseconds" % (elapsed_time))
-if msg.text == "Spam":
+		if msg.text == "Spam":
                     sendMessage(msg.to,"3")
                     sendMessage(msg.to,"2")
 		    sendMessage(msg.to,"1")
-		    sendMessage(msg.to,"MJ-OKEH")
-                    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
-		    sendMessage(msg.to,"MJ-OKEH")
+		    sendMessage(msg.to,"MJ")
+                    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
 		if msg.text == "tagmember":
 		      group = client.getGroup(msg.to)
 		      mem = [contact.mid for contact in group.members]
