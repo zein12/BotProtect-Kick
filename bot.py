@@ -124,10 +124,10 @@ def SEND_MESSAGE(op):
             if msg.contentType == 0:
                 if msg.text == "mid":
                     sendMessage(msg.to, msg.to)
-                if msg.text == "me":
+                if msg.text == "saya":
                     sendMessage(msg.to, text=None, contentMetadata={'mid': msg.from_}, contentType=13)
                 if msg.text == "gift":
-                    sendMessage(msg.to, text="gift sent", contentMetadata=None, contentType=9)
+                    sendMessage(msg.to, text="gift terkirim", contentMetadata=None, contentType=9)
                 else:
                     pass
             else:
@@ -155,7 +155,7 @@ def SEND_MESSAGE(op):
 	
 if msg.text == "url":
                     sendMessage(msg.to,"line://ti/g/" + client._client.reissueGroupTicket(msg.to))
-                if msg.text == "buka":
+                if msg.text == "open":
                     group = client.getGroup(msg.to)
                     if group.preventJoinByTicket == False:
                         sendMessage(msg.to, "sudah dibuka")
@@ -163,7 +163,7 @@ if msg.text == "url":
                         group.preventJoinByTicket = False
                         client.updateGroup(group)
                         sendMessage(msg.to, "URL Open")
-                if msg.text == "tutup":
+                if msg.text == "close":
                     group = client.getGroup(msg.to)
                     if group.preventJoinByTicket == True:
                         sendMessage(msg.to, "sudah ditutup")
