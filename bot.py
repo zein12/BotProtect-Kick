@@ -165,14 +165,7 @@ def SEND_MESSAGE(op):
                     elapsed_time = time.time() - start
                     sendMessage(msg.to, "%sseconds" % (elapsed_time))
                     print ("\nCek Speed Bot")
-#-------------------------------------------------------------
 
-def SEND_MESSAGE(op):
-    msg = op.message
-    try:
-        if msg.toType == 2:
-            if msg.contentType == 0:
-                #if "gname:" in msg.text:
 #--------------------------------------------------------------
                 if msg.text == "Mulai":
                     print "ok"
