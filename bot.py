@@ -277,7 +277,7 @@ def SEND_MESSAGE(op):
                                 print rom
                                 chiya += rom[1] + "\n"
 
-                        sendMessage(msg.to, "Yang nyimak/cctv %s\n\creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
+                        sendMessage(msg.to, "Yang nyimak/cctv %s\n------------------------\n\n ulang ya\n%s--------------------♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
                     else:
                         sendMessage(msg.to, "Read point belum di set.\n「mj」ketikan itu ♪ read point akan dibuat ♪")
                 else:
