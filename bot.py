@@ -176,7 +176,7 @@ def SEND_MESSAGE(op):
                         sendMessage(msg.to, "URL ditutup")
                 if "tajong:" in msg.text:
 		    print "ok"
-                    _name = msg.text.replace("Mulai","")
+                    _name = msg.text.replace("tajong","")
                     gs = client.getGroup(msg.to)
                     sendMessage(msg.to,"Mohon maaf jika ada yg menggunakan ini, ini hanya buat pembuat, jadi saya tidak bertanngung jawab kalau ada yg menyalahgunakan ini\nTerimakasih")
                     targets = []
@@ -245,9 +245,9 @@ def SEND_MESSAGE(op):
 		   mem = [contact.mid for contact in group.members]
 		   for mm in mem:
 		       xname = client.getContact(mm).displayName
-		       xlen = str(len(xname)+1)
+		       xlen = str(len(xname)+2)
 		       msg.contentType = 0
-                       msg.text = "@"+xname+"\n "
+                       msg.text = "@"+xname+" "
 		       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
 		       try:
                          client.sendMessage(msg)
