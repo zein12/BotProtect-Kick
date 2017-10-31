@@ -245,23 +245,7 @@ def SEND_MESSAGE(op):
                        except Exception as error:
                            print error        
 
-            else:
-                if cl.getGroup(msg.to).preventJoinByTicket == False:
-                    cl.reissueGroupTicket(msg.to)
-                    X = cl.getGroup(msg.to)
-                    X.preventJoinByTicket = True
-                    random.choice(KAC).updateGroup(X)
-                else:
-                    if msg.from_ in Bots:
-                        pass
-                    else:
-                        print "No Action"
-        if op.type == 59:
-            print op
 
-
-    except Exception as error:
-print error
                 if msg.text == "time":
                     sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y-%m-%d- %H:%M:%S') + "is")
                 if msg.text == "gift":
