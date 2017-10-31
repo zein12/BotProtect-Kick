@@ -48,37 +48,6 @@ def NOTIFIED_ADD_CONTACT(op):
 
 tracer.addOpInterrupt(5,NOTIFIED_ADD_CONTACT)
 
-def NOTIFIED_ACCEPT_GROUP_INVITATION(op):
-    #print op
-    try:
-        sendMessage(op.param1, client.getContact(op.param2).displayName + "Selamat datang di" + group.name)
-    except Exception as e:
-        print e
-        print ("\n\nNOTIFIED_ACCEPT_GROUP_INVITATION\n\n")
-        return
-
-tracer.addOpInterrupt(17,NOTIFIED_ACCEPT_GROUP_INVITATION)
-
-def NOTIFIED_KICKOUT_FROM_GROUP(op):
-    try:
-        sendMessage(op.param1, client.getContact(op.param3).displayName + " dadah\n(*´･ω･*)")
-    except Exception as e:
-        print e
-        print ("\n\nNOTIFIED_KICKOUT_FROM_GROUP\n\n")
-        return
-
-tracer.addOpInterrupt(19,NOTIFIED_KICKOUT_FROM_GROUP)
-
-def NOTIFIED_LEAVE_GROUP(op):
-    try:
-        sendMessage(op.param1, client.getContact(op.param2).displayName + " dadah\n(*´･ω･*)")
-    except Exception as e:
-        print e
-        print ("\n\nNOTIFIED_LEAVE_GROUP\n\n")
-        return
-
-tracer.addOpInterrupt(15,NOTIFIED_LEAVE_GROUP)
-
 def NOTIFIED_READ_MESSAGE(op):
     #print op
     try:
@@ -95,6 +64,39 @@ def NOTIFIED_READ_MESSAGE(op):
         pass
 
 tracer.addOpInterrupt(55, NOTIFIED_READ_MESSAGE)
+
+def NOTIFIED_UPDATE_GROUP(op):
+    try:
+                sendMessage(op.param1, client.getContact(op.param2).displayName + ", Jangan Dimainin QR-nya :3\nSaya Kick ya")
+                client.kickoutFromGroup(op.param1,[op.param2])
+    except Exception as e:
+        print e
+        print ("\n\nNOTIFIED_UPDATE_GROUP\n\n")
+        return
+
+tracer.addOpInterrupt(11,NOTIFIED_UPDATE_GROUP)
+
+def NOTIFIED_CANCEL_INVITATION_GROUP(op):
+    try:
+                sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kenapa dibatalin?\nitu temen saya")
+                client.kickoutFromGroup(op.param1,[op.param2])
+                client.inviteIntoGroup(op.param1,[op.param3])
+    except Exception as e:
+        print e
+        print ("\n\nNOTIFIED_CANCEL_INVITATION_GROUP\n\n")
+        return
+
+tracer.addOpInterrupt(32,NOTIFIED_CANCEL_INVITATION_GROUP)
+
+def CANCEL_INVITATION_GROUP(op):
+    try:
+        client.cancelGroupInvitation(op.param1,[op.param3])
+    except Exception as e:
+        print e
+        print ("\n\nCANCEL_INVITATION_GROUP\n\n")
+        return
+
+tracer.addOpInterrupt(31,CANCEL_INVITATION_GROUP)
 
 def RECEIVE_MESSAGE(op):
     msg = op.message
@@ -245,7 +247,7 @@ def SEND_MESSAGE(op):
 		       xname = client.getContact(mm).displayName
 		       xlen = str(len(xname)+1)
 		       msg.contentType = 0
-                       msg.text = "@"+xname+" "
+                       msg.text = "@"+xname+"\n "
 		       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
 		       try:
                          client.sendMessage(msg)
@@ -256,7 +258,7 @@ def SEND_MESSAGE(op):
                 if msg.text == "gift":
                     sendMessage(msg.to, text="gift terkirim", contentMetadata=None, contentType=9)
                 if msg.text == "mj":
-                    sendMessage(msg.to, "Siap komandan,, ada yg bisa dibanting eh dibantu..??")
+                    sendMessage(msg.to, "Okay")
                     try:
                         del wait['readPoint'][msg.to]
                         del wait['readMember'][msg.to]
@@ -277,7 +279,7 @@ def SEND_MESSAGE(op):
                                 print rom
                                 chiya += rom[1] + "\n"
 
-                        sendMessage(msg.to, "Yang nyimak/cctv %s\n------------------------\n\n ulang ya\n%s--------------------♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
+                        sendMessage(msg.to, "Yang nyimak/cctv %s\n------------------------\n\n saat tdk ada\n%s--------------------♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
                     else:
                         sendMessage(msg.to, "Read point belum di set.\n「mj」ketikan itu ♪ read point akan dibuat ♪")
                 else:
