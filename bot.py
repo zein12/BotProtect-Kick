@@ -173,10 +173,25 @@ def SEND_MESSAGE(op):
                         client.updateGroup(group)
                         sendMessage(msg.to, "URL ditutup")
                 if "tajong:" in msg.text:
-                    key = msg.text[5:]
-                    client.kickoutFromGroup(msg.to, [key])
-                    contact = client.getContact(key)
-                    sendMessage(msg.to, ""+contact.displayName+"maaf")
+		    print "ok"
+                    _name = msg.text.replace("Mulai","")
+                    gs = client.getGroup(msg.to)
+                    sendMessage(msg.to,"Mohon maaf jika ada yg menggunakan ini, ini hanya buat pembuat, jadi saya tidak bertanngung jawab kalau ada yg menyalahgunakan ini\nTerimakasih")
+                    targets = []
+                    for g in gs.members:
+                        if _name in g.displayName:
+                            targets.append(g.mid)
+                    if targets == []:
+                        sendMessage(msg.to,"error")
+                    else:
+                        for target in targets:
+                            try:
+                                klist=[client]
+                                kicker=random.choice(klist)
+                                kicker.kickoutFromGroup(msg.to,[target])
+                                print (msg.to,[g.mid])
+                            except:
+		                   sendText(msg.to,"error")
                 if "nk:" in msg.text:
                     key = msg.text[3:]
                     group = client.getGroup(msg.to)
@@ -223,35 +238,25 @@ def SEND_MESSAGE(op):
                     sendMessage(msg.to,"MJ")
 		    sendMessage(msg.to,"MJ")
 		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
-		    sendMessage(msg.to,"MJ")
 		if msg.text == "tagmember":
-		   group = cl.getGroup(msg.to)
-                   msg_appended = ""
-                   mem = [contact.mid for contact in group.members]                
-                   for mm in mem:
-                       xname = cl.getContact(mm).displayName
-                       xlen = str(len(xname)+1)
-                       msg.contentType = 0
+		   group = client.getGroup(msg.to)
+		   mem = [contact.mid for contact in group.members]
+		   for mm in mem:
+		       xname = client.getContact(mm).displayName
+		       xlen = str(len(xname)+1)
+		       msg.contentType = 0
                        msg.text = "@"+xname+" "
-                       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
-                       # msg_appended += "->" +msg+ "\n"
-                       try:
-                           cl.sendMessage(msg)
-                       except Exception as error:
-                           print error        
-
-
+		       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
+		       try:
+                         client.sendMessage(msg)
+		       except Exception as error:
+		         print error
                 if msg.text == "time":
                     sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y-%m-%d- %H:%M:%S') + "is")
                 if msg.text == "gift":
                     sendMessage(msg.to, text="gift terkirim", contentMetadata=None, contentType=9)
-                if msg.text == "set":
-                    sendMessage(msg.to, "Saya udah men-set read point ♪\n「cctv」Saya akan menunjukan yg cctv ♪")
+                if msg.text == "mj":
+                    sendMessage(msg.to, "Siap komandan,, ada yg bisa dibanting eh dibantu..??")
                     try:
                         del wait['readPoint'][msg.to]
                         del wait['readMember'][msg.to]
@@ -272,9 +277,9 @@ def SEND_MESSAGE(op):
                                 print rom
                                 chiya += rom[1] + "\n"
 
-                        sendMessage(msg.to, "Yang nyimak/cctv %s\nhanya itu\n\nyg nongol saat kamu g ada\n%s----------- ♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
+                        sendMessage(msg.to, "Yang nyimak/cctv %s\n\creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
                     else:
-                        sendMessage(msg.to, "Read point belum di set.\n「set」ketikan itu ♪ read point akan dibuat ♪")
+                        sendMessage(msg.to, "Read point belum di set.\n「mj」ketikan itu ♪ read point akan dibuat ♪")
                 else:
                     pass
         else:
