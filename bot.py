@@ -65,6 +65,29 @@ def NOTIFIED_READ_MESSAGE(op):
 
 tracer.addOpInterrupt(55, NOTIFIED_READ_MESSAGE)
 
+def NOTIFIED_ACCEPT_GROUP_INVITATION(op):
+    try:
+        sendMessage(op.param1, client.getContact(op.param2).displayName + ", Selamat Datang")
+    except Exception as e:
+        print e
+        print ("\n\nNOTIFIED_ACCEPT_GROUP_INVITATION\n\n")
+        return
+
+tracer.addOpInterrupt(17,NOTIFIED_ACCEPT_GROUP_INVITATION)
+
+def NOTIFIED_KICKOUT_FROM_GROUP(op):
+    try:
+				client.kickoutFromGroup(op.param1,[op.param2])
+				client.inviteIntoGroup(op.param1,[op.param3])
+				sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kikil ya kamu ?")				
+    except Exception as e:
+        print e
+        print ("\n\nNOTIFIED_KICKOUT_FROM_GROUP\n\n")
+        return
+
+tracer.addOpInterrupt(19,NOTIFIED_KICKOUT_FROM_GROUP)
+
+
 def NOTIFIED_UPDATE_GROUP(op):
     try:
                 sendMessage(op.param1, client.getContact(op.param2).displayName + ", Jangan Dimainin QR-nya :3\nSaya Kick ya")
@@ -78,7 +101,7 @@ tracer.addOpInterrupt(11,NOTIFIED_UPDATE_GROUP)
 
 def NOTIFIED_CANCEL_INVITATION_GROUP(op):
     try:
-                sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kenapa dibatalin?\nitu temen saya")
+                sendMessage(op.param1, client.getContact(op.param2).displayName + ", Kenapa dibatalin?\nkikil ya kamu ?")
                 client.kickoutFromGroup(op.param1,[op.param2])
                 client.inviteIntoGroup(op.param1,[op.param3])
     except Exception as e:
