@@ -148,7 +148,7 @@ def SEND_MESSAGE(op):
                     if group.invitee is None: md += "\nMembers: " + str(len(group.members)) + "人\n\nInviting: 0People"
                     else: md += "\nMembers: " + str(len(group.members)) + "People\nInvited: " + str(len(group.invitee)) + "People"
                     sendMessage(msg.to,md)
-                if "gname:" in msg.text:
+                if "rubahnama:" in msg.text:
                     key = msg.text[22:]
                     group = client.getGroup(msg.to)
                     group.name = key
@@ -219,31 +219,49 @@ def SEND_MESSAGE(op):
                     sendMessage(msg.to,"3")
                     sendMessage(msg.to,"2")
 		    sendMessage(msg.to,"1")
-		    sendMessage(msg.to,"M-J")
-                    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
-		    sendMessage(msg.to,"M-J")
+		    sendMessage(msg.to,"MJ")
+                    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
+		    sendMessage(msg.to,"MJ")
 		if msg.text == "tagmember":
-		      group = client.getGroup(msg.to)
-		      mem = [contact.mid for contact in group.members]
-		      for mm in mem:
-		       xname = client.getContact(mm).displayName
-		       xlen = str(len(xname)+1)
-		       msg.contentType = 0
+		   group = cl.getGroup(msg.to)
+                   msg_appended = ""
+                   mem = [contact.mid for contact in group.members]                
+                   for mm in mem:
+                       xname = cl.getContact(mm).displayName
+                       xlen = str(len(xname)+1)
+                       msg.contentType = 0
                        msg.text = "@"+xname+" "
-		       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
-		       try:
-                         client.sendMessage(msg)
-		       except Exception as error:
-                   	 print error
- 		else:
-		    pass
+                       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
+                       # msg_appended += "->" +msg+ "\n"
+                       try:
+                           cl.sendMessage(msg)
+                       except Exception as error:
+                           print error        
+
+            else:
+                if cl.getGroup(msg.to).preventJoinByTicket == False:
+                    cl.reissueGroupTicket(msg.to)
+                    X = cl.getGroup(msg.to)
+                    X.preventJoinByTicket = True
+                    random.choice(KAC).updateGroup(X)
+                else:
+                    if msg.from_ in Bots:
+                        pass
+                    else:
+                        print "No Action"
+        if op.type == 59:
+            print op
+
+
+    except Exception as error:
+print error
                 if msg.text == "time":
                     sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y-%m-%d- %H:%M:%S') + "is")
                 if msg.text == "gift":
