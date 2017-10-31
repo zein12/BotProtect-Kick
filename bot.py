@@ -241,18 +241,31 @@ def SEND_MESSAGE(op):
 		    sendMessage(msg.to,"MJ")
 		    sendMessage(msg.to,"MJ")
 		if msg.text == "tagmember":
-		   group = client.getGroup(msg.to)
-		   mem = [contact.mid for contact in group.members]
-		   for mm in mem:
-		       xname = client.getContact(mm).displayName
-		       xlen = str(len(xname)+2)
-		       msg.contentType = 0
-                       msg.text = "@"+xname+" "
-		       msg.contentMetadata ={'MENTION':'{"MENTIONEES":[{"S":"0","E":'+json.dumps(xlen)+',"M":'+json.dumps(mm)+'}]}','EMTVER':'4'}
-		       try:
-                         client.sendMessage(msg)
-		       except Exception as error:
-		         print error
+                  group = cl.getGroup(msg.to)
+                  nama = [contact.mid for contact in group.members]
+
+                  cb = ""
+                  cb2 = ""
+                  strt = int(0)
+                  akh = int(0)
+                  for md in nama:
+                      akh = akh + int(6)
+
+                      cb += """{"S":"""+json.dumps(str(strt))+""","E":"""+json.dumps(str(akh))+""","M":"""+json.dumps(md)+"},"""
+
+                      strt = strt + int(7)
+                      akh = akh + 1
+                      cb2 += "@nrik \n"
+
+                  cb = (cb[:int(len(cb)-1)])
+                  msg.contentType = 0
+                  msg.text = cb2
+                  msg.contentMetadata ={'MENTION':'{"MENTIONEES":['+cb+']}','EMTVER':'4'}
+
+                  try:
+                      cl.sendMessage(msg)
+                  except Exception as error:
+			print error
                 if msg.text == "time":
                     sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y-%m-%d- %H:%M:%S') + "is")
                 if msg.text == "gift":
